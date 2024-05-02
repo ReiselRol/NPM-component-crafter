@@ -1,0 +1,19 @@
+{
+  "name": "component-crafter",
+  "version": "1.0.10",
+  "description": "",
+  "main": "src/component-crafter.js",
+  "type": "module",
+  "scripts": {
+    "test": "test",
+    "start": "node src/component-crafter.js"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0"
+  },
+  "bin": {
+    "component": "src/component-crafter.js"
+  },
+  "author": "Reisel_Rol_7",
+  "license": "ISC"
+}
