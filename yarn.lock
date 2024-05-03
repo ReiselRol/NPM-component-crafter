@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+component-crafter@^1.2.3:
+  version "1.2.16"
+  resolved "https://registry.yarnpkg.com/component-crafter/-/component-crafter-1.2.16.tgz#d53fb19927fe17e6af636096d3f2d2167f2801c1"
+  integrity sha512-2Tnlma+QWlWYHodrmKQoLCVUEpnpxvi8G2kM4O3wOy1iUXZHU05TIKGyXjsHbnBKZX1u3rPgwmxpJMgb1/mU9w==
+  dependencies:
+    component-crafter "^1.2.3"
+    fs-extra "^11.2.0"
+
 fs-extra@^11.2.0:
   version "11.2.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-11.2.0.tgz#e70e17dfad64232287d01929399e0ea7c86b0e5b"
