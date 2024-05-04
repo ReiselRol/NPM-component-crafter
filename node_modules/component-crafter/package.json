@@ -1,6 +1,6 @@
 {
   "name": "component-crafter",
-  "version": "1.2.16",
+  "version": "1.2.48",
   "description": "",
   "main": "src/component-crafter.js",
   "type": "module",
