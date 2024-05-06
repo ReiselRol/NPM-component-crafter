@@ -1,6 +1,6 @@
 {
   "name": "component-crafter",
-  "version": "1.2.48",
+  "version": "2.0.5",
   "description": "",
   "main": "src/component-crafter.js",
   "type": "module",
@@ -9,7 +9,6 @@
     "start": "node src/component-crafter.js"
   },
   "dependencies": {
-    "component-crafter": "^1.2.3",
     "fs-extra": "^11.2.0"
   },
   "bin": {
@@ -18,5 +17,8 @@
     "component-crafter": "src/component-crafter.js"
   },
   "author": "Reisel_Rol_7",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "component-crafter": "^2.0.1"
+  }
 }

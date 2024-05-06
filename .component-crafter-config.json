@@ -1,5 +1,5 @@
 {
- "showExtraDetails": true,
+ "showExtraDetails": false,
  "commands": [
   {
    "name": "component",

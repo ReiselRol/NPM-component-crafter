@@ -5,12 +5,13 @@ import path from 'path';
 
 const CONFIG_FILE_NAME = ".component-crafter-config.json";
 const DEFAULT_CONFIG = {
+    showExtraDetails : false,
     commands: [
         {
             name: "component",
             description: "this command will create a folder with a tsx and their css linked and a folder for tests.",
             startingPath: ["src", "components"],
-            Scaffold: [
+            scaffold: [
                 {
                     type: "folder",
                     name: "|SPECIAL|",
@@ -41,7 +42,7 @@ function componentCrafterCall() {
 
     const PROJECT_ROOT = process.argv[1].replace('\\node_modules\\component-crafter\\src\\component-crafter.js', '')
     const COMMAND = (process.argv[2] != undefined) ? process.argv[2].toLowerCase() : undefined
-    const COMMAND_SPECIAL = (process.argv[3] != undefined) ? process.argv[3].toLowerCase() : undefined
+    const COMMAND_SPECIAL = (process.argv[3] != undefined) ? process.argv[3] : undefined
     const COMMAND_PARAMETER = (process.argv[4] != undefined) ? process.argv[4].toLowerCase()  : undefined
 
     if (COMMAND != undefined) 
@@ -109,12 +110,14 @@ function crafterLog(message, tag) {
 }
 
 async function executeCraftCommand (command, startingPath, commandParameter, special) {
+    let extraDetails = false
     if (isConfigCreated(startingPath) == true) {
         const configurationBuffer = await fs.readFile(path.join(startingPath, CONFIG_FILE_NAME))
         const configurationData = JSON.parse(configurationBuffer)
         if (configurationData["commands"] != undefined) {
             if (configurationData["commands"].length > 0) {
-                const configurationCommandIndex = searchCommand(configurationData["commands"], command)
+                if (configurationData["showExtraDetails"] != undefined) extraDetails = configurationData["showExtraDetails"]
+                const configurationCommandIndex = searchCommand(configurationData["commands"], command) 
                 if (configurationCommandIndex >= 0) {
                     if (commandParameter != undefined) {    
                         if (configurationData["commands"][configurationCommandIndex] != undefined) crafterLog(configurationData["commands"][configurationCommandIndex].name + ": " + configurationData["commands"][configurationCommandIndex].description, 'I')
@@ -122,7 +125,8 @@ async function executeCraftCommand (command, startingPath, commandParameter, spe
                     } else {
                         let commandStartingPath = startingPath
                         if (configurationData["commands"][configurationCommandIndex]["startingPath"] != undefined && configurationData["commands"][configurationCommandIndex]["startingPath"].length > 0) commandStartingPath = path.join(startingPath, ...configurationData["commands"][configurationCommandIndex]["startingPath"])
-                        const treeOfNewElements = await recursiveFileCreator(configurationData["commands"][configurationCommandIndex]["Scaffold"], commandStartingPath, special, 0)
+                        const treeOfNewElements = await recursiveFileCreator(configurationData["commands"][configurationCommandIndex]["scaffold"], commandStartingPath, special, 0, extraDetails)
+                        crafterLog("Component Crafter is running the command '" + command +"':\n\nFile Tree:\n\n" + treeOfNewElements, 'I')
                     }
                 } else crafterLog("Component Crafter can't find the specified command '" + command + "'.\nPlease run the command yarn crafter help to see all commands are loaded.", 'E')
             } else crafterLog("Component Crafter has no commands yet, please add some commands inside of 'commands'\n array.", 'E')
@@ -141,69 +145,43 @@ function searchCommand (arrayToSearch, command) {
     return commandIndex
 }
 
-async function recursiveFileCreator (scaffold, startingPath, special, depth = 0, firstElement = true) {
+async function recursiveFileCreator (scaffold, startingPath, special, depth = 0, extraDetails) {
     let textOfTheCreation = ""
     for (let i = 0; i < scaffold.length; i++) {
         const data = scaffold[i]
+        let textOfTheCreationContext = ""
         if (data["type"] != undefined) {
             if (data["name"] != undefined && data["name"].length > 0) {
                 let fileName = data["name"]
                 if (fileName.includes("|SPECIAL|")) fileName = fileName.replace("|SPECIAL|", special)
                 const newPath = path.join(startingPath, fileName)
                 if (data["type"] == "folder") {
+                    let name = data["name"]
+                    while(name.includes("|SPECIAL|")) name = name.replace("|SPECIAL|", special)
+                    textOfTheCreationContext = "\n"
+                    for (let spaceDepth = 0; spaceDepth < depth; spaceDepth++) textOfTheCreationContext += (spaceDepth == depth - 1) ? " |______ " : "         "
+                    textOfTheCreationContext += name
                     await fs.ensureDir(newPath)
-                    textOfTheCreation += await recursiveFileCreator(data.content, newPath, special, depth + 1)
+                    textOfTheCreationContext += await recursiveFileCreator(data.content, newPath, special, depth + 1, extraDetails)
+
                 }
                 else if (data["type"] == "file") {
                     let content = ""
+                    let name = data["name"]
+                    while(name.includes("|SPECIAL|")) name = name.replace("|SPECIAL|", special)
+                    textOfTheCreationContext = "\n"
+                    for (let spaceDepth = 0; spaceDepth < depth; spaceDepth++) textOfTheCreationContext += (spaceDepth == depth - 1) ? " |______ " : "         "
+                    textOfTheCreationContext += name
+                    if (extraDetails == true) textOfTheCreationContext += " ( " + newPath + " )."
                     if (data["content"] != undefined && data["content"].length > 0) content = data["content"]
                     while(content.includes("|SPECIAL|")) content = content.replace("|SPECIAL|", special)
                     fs.writeFile(newPath, content)
                 }
             }
         }
+        textOfTheCreation += textOfTheCreationContext
     }
     return textOfTheCreation
 }
 
 componentCrafterCall()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-async function createComponent(COMPONENT_NAME) {
-    if (COMPONENT_NAME == undefined) console.log('\nPlease, specify a component name, example: \nyarn new-component COMPONENT_NAME\n')
-    else {
-        const ROOT_DIRECTORY = fs.realpathSync(process.cwd())
-        const PATH_TO_FIND_COMPONENTS = ['src', 'components']
-        const COMPONENTS_DIRECTORY = path.join(ROOT_DIRECTORY, ...PATH_TO_FIND_COMPONENTS)
-        if (await fs.pathExists(COMPONENTS_DIRECTORY)) {
-            const COMPONENT_PATH = path.join(COMPONENTS_DIRECTORY, COMPONENT_NAME)
-            if ((await fs.pathExists(COMPONENT_PATH)) == false) {
-                const COMPONENT_TEST_PATH = path.join(COMPONENT_PATH, '__test__')
-                await fs.ensureDir(COMPONENT_PATH)
-                await fs.ensureDir(COMPONENT_TEST_PATH)
-                const COMPONENT_CONTENT = `import './|{COMPONENT_NAME}.css'\n\nfunction |{COMPONENT_NAME}({}) {\n  return (\n    <>\n\n    </>\n  )\n\n}\nexport default |{COMPONENT_NAME}
-                `
-                await fs.writeFile(path.join(COMPONENT_PATH, COMPONENT_NAME + '.css'), '');
-                await fs.writeFile(path.join(COMPONENT_PATH, COMPONENT_NAME + '.tsx'), COMPONENT_CONTENT);
-            } else console.log('\nERROR: component-crafter.js found a folder with the same name as the new component.')
-        } else console.log('\nERROR: component-crafter.js cant found the folder "components" on "src".')
-    }
-}
-*/
