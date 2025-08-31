@@ -64,7 +64,7 @@ export const executeCraftCommand = () => {
         }
         const treeOfNewElements = recursiveFileCreator({
             scaffold: commandSelected.scaffold,
-            startingPath
+            startingPath: commandStartingPath
         });
 
         print({ message: "Component Crafter is running the command " + commandName + "':\n\nFile Tree:\n\n" + treeOfNewElements, logType: LogType.Information })
