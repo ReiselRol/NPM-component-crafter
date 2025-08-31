@@ -3,7 +3,9 @@ import { FileType } from "../enums/FileType";
 import { CrafterCommandFile } from "../types/CrafterCommandFile";
 import { getCommandSpecialProperty } from "./getCommandSpecialProperty";
 import { getConfigFile } from "./getConfigFile";
-import { ensureDirSync, writeFileSync } from "fs-extra";
+import fs from "fs-extra";
+
+const { ensureDirSync, writeFileSync } = fs;
 
 interface RecursiveFileCreatorProps {
     startingPath: string,

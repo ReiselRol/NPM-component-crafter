@@ -1,4 +1,4 @@
-import { writeFileSync } from 'fs-extra';
+import fs from 'fs-extra';
 import { DefaultConfig } from "../configs/DefaultConfig";
 import { Messages } from "../constants/Messages";
 import { LogType } from "../enums/LogType";
@@ -6,6 +6,7 @@ import { print } from "./print";
 import { getConfigFilePath } from './getConfigFilePath';
 import { checkIfItsTheConfigFileCreated } from './checkIfItsTheConfigFileCreated';
 
+const { writeFileSync } = fs;
 interface CreateEnviromentProps {
     startingPath: string;
 }
