@@ -25,9 +25,9 @@ interface PrintProps {
  */
 export const print = ({ message, logType }: PrintProps) => {
     switch (logType) {
-        case LogType.Error: printError({ message });
-        case LogType.Success: printSuccess({ message });
-        case LogType.Information: printInfo({ message});
+        case LogType.Error: printError({ message }); break;
+        case LogType.Success: printSuccess({ message }); break;
+        case LogType.Information: printInfo({ message}); break;
         default: printError({ message: Messages.Error.FunctionPrintLogTypeNotFound + logType });
     }
 }
