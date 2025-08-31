@@ -9,7 +9,7 @@
 export const getProjectRoot = (): string => {
     let projectRoot: string = "";
 
-    projectRoot = process.argv[1].replace('\\node_modules\\component-crafter\\src\\component-crafter.js', '');
+    projectRoot = process.argv[1].replace('\\node_modules\\component-crafter\\dist\\index.js', '');
 
     return projectRoot;
 }
