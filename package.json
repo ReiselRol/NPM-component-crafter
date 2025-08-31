@@ -14,16 +14,16 @@
     "fs-extra": "^11.3.1"
   },
   "bin": {
-    "craft": "dist/cli.js",
-    "crafter": "dist/cli.js",
-    "component-crafter": "dist/cli.js"
+    "craft": "dist/index.js",
+    "crafter": "dist/index.js",
+    "component-crafter": "dist/index.js"
   },
   "author": "Reisel_Rol_7",
   "license": "ISC",
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.3.0",
-    "component-crafter": "^2.0.1",
+    "component-crafter": "^2.0.6",
     "tsup": "^8.5.0",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
