@@ -1,0 +1,1 @@
+export const ConfigFileName: string = ".component-crafter-config.json" as const
