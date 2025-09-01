@@ -41,7 +41,7 @@ export const recursiveFileCreator = ({ scaffold, startingPath, depth = 0 }: Recu
 
         if (elementSelected.type != undefined && elementSelected.name != undefined && elementSelected.name.length > 0) {
 
-            let fileName = (specialProperty == undefined) ? elementSelected.name : elementSelected.name.replace("|SPECIAL|", specialProperty);
+            let fileName = (specialProperty == undefined) ? elementSelected.name : elementSelected.name.replaceAll("|SPECIAL|", specialProperty);
             const newStartingPath = path.join(startingPath, fileName);
 
             if (elementSelected.type == FileType.Folder) {
@@ -63,7 +63,7 @@ export const recursiveFileCreator = ({ scaffold, startingPath, depth = 0 }: Recu
                 for (let spaceDepth = 0; spaceDepth < depth; spaceDepth++) textOfTheCreationContext += (spaceDepth == depth - 1) ? " |______ " : "         ";
                 textOfTheCreationContext += fileName;
                 if (extraDetails == true) textOfTheCreationContext += " ( " + newStartingPath + " ).";
-                let content = (specialProperty == undefined) ? elementSelected.content as string : (elementSelected.content as string).replace("|SPECIAL|", specialProperty);
+                let content = (specialProperty == undefined) ? elementSelected.content as string : (elementSelected.content as string).replaceAll("|SPECIAL|", specialProperty);
                 writeFileSync(newStartingPath, content);
             }
         }
