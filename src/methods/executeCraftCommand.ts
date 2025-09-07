@@ -9,6 +9,7 @@ import { getProjectRoot } from "./getProjectRoot";
 import { print } from "./print";
 import { searchCommandIndexByCommandName } from "./searchCommandIndexByCommandName";
 import { recursiveFileCreator } from "./recursiveFileCreator";
+import { runTerminalCommands } from "./runTerminalCommands";
 
 /**
  * With this function we can manage a component crafter command. if this function will
@@ -62,12 +63,29 @@ export const executeCraftCommand = () => {
         if (commandSelected.startingPath != undefined && commandSelected.startingPath.length > 0) {
             commandStartingPath = path.join(startingPath, ...commandSelected.startingPath)
         }
-        const treeOfNewElements = recursiveFileCreator({
-            scaffold: commandSelected.scaffold,
-            startingPath: commandStartingPath
-        });
 
-        print({ message: "Component Crafter is running the command " + commandName + "':\n\nFile Tree:\n\n" + treeOfNewElements, logType: LogType.Information })
+        let message: string = '';
+
+        if (commandSelected.commandsBefore != undefined && Array.isArray(commandSelected.commandsBefore)) {
+            message = runTerminalCommands({commands: commandSelected.commandsBefore})
+        }
+
+        if (commandSelected.scaffold != undefined) {
+            
+            const treeOfNewElements = recursiveFileCreator({
+                scaffold: commandSelected.scaffold,
+                startingPath: commandStartingPath
+            });
+
+            message += "\n" + treeOfNewElements;
+        }
+
+        if (commandSelected.commandsAfter != undefined && Array.isArray(commandSelected.commandsAfter)) {
+            message = runTerminalCommands({commands: commandSelected.commandsAfter})
+        }
+        
+        if (message == '') print({ message: Messages.Information.DontDoAnything, logType: LogType.Information });
+        print({ message, logType: LogType.Information });
 
     }
 }

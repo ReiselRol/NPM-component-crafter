@@ -18,10 +18,20 @@ export interface CrafterCommandType {
      * With this property we can know where is gonna start to craft the
      * template of this command starting by the root of the project.
      */
-    startingPath: string[];
+    startingPath?: string[];
     /**
      * With this property we can know what files or folder its gonna
      * create this custom command.
      */
-    scaffold: CrafterCommandFile[];
+    scaffold?: CrafterCommandFile[];
+    /**
+     * With this property we can know what commands need to run before
+     * it runs the command itsef
+     */
+    commandsBefore?: string[];
+    /**
+     * With this property we can know what commands need to run before
+     * it runs the command itsef
+     */
+    commandsAfter?: string[];
 }

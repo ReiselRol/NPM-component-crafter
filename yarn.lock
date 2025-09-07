@@ -515,9 +515,9 @@ commander@^4.0.0:
   integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
 
 component-crafter@^2.0.6:
-  version "2.0.12"
-  resolved "https://registry.yarnpkg.com/component-crafter/-/component-crafter-2.0.12.tgz#9f7902f33441e7643207aa50946b3c87bea525f8"
-  integrity sha512-MRyG7mepQ3Ywiy2QeE0Az5NchijyNoHJ9tWBZQZJRL/p7pcULVMLNNrqva60GGGaJ5PUh7tEXw/lddZ+lSX/MQ==
+  version "2.0.13"
+  resolved "https://registry.yarnpkg.com/component-crafter/-/component-crafter-2.0.13.tgz#a4344d02bab7f6195a078509efa88bacb0dd0cde"
+  integrity sha512-IfzVZPaog9/R9Rb9yOhLRMu/7etDC6FtQKLITdndcvz/H2oWMvZQgP8o9uanHqbsDgv8K/nYwA41RUnhFI0Lfg==
   dependencies:
     commander "^14.0.0"
     fast-glob "^3.3.3"

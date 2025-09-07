@@ -10,12 +10,22 @@ export const Messages = {
         /**
          * With this message you're marking to the user the welcomes.
          */
-        WelcomeMessage: "Welcome to Component Crafter! This terminal aplication is used for \nmake custom templates with custom configurable commands!"
+        WelcomeMessage: "Welcome to Component Crafter! This terminal aplication is used for \nmake custom templates with custom configurable commands!",
+        /**
+         * REQUIRES APPEND A STRING. <br></br>
+         * With this message you're marking to the user that the command don't do anything.
+         */
+        DontDoAnything: "Component Crafter run the command but on the Component Crafter Configuration  this command don't have a scaffold to build or any command to run, the command name is: "
     },
     /**
      * On this property we have the messages related of a success on some command or functions.
      */
     Successfully: {
+        /**
+         * REQUIRES APPEND A STRING. <br></br>
+         * With this message you're marking to the user that the terminal command worked as expected.
+         */
+        RunningTerminalCommandSuccessfully: "Component Crafter run successfully the command: ",
         /**
          * With this message you're marking to the user that the Yarn craft init is setted the settings correctly.
          */
@@ -25,6 +35,11 @@ export const Messages = {
      * On this property we have the messages related of an errors on some command or functions.
      */
     Error: {
+        /**
+         * REQUIRES APPEND A STRING. <br></br>
+         * With this message you're marking to the user that the terminal command don't worked as expected.
+         */
+        RunningTerminalCommandUnsucessfully: "Component Crafter run with an error the command: ",
         /**
          * With this message you're marking to the user that the command of initialize can't
          * work properly because is initialized yet.
