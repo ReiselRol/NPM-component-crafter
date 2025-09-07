@@ -84,7 +84,7 @@ export const executeCraftCommand = () => {
             message = runTerminalCommands({commands: commandSelected.commandsAfter})
         }
         
-        if (message == '') print({ message: Messages.Information.DontDoAnything, logType: LogType.Information });
+        if (message == '') print({ message: Messages.Information.DontDoAnything + commandName, logType: LogType.Information });
         else print({ message, logType: LogType.Information });
 
     }
