@@ -85,7 +85,7 @@ export const executeCraftCommand = () => {
         }
         
         if (message == '') print({ message: Messages.Information.DontDoAnything, logType: LogType.Information });
-        print({ message, logType: LogType.Information });
+        else print({ message, logType: LogType.Information });
 
     }
 }
