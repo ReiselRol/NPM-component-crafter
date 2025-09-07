@@ -1,5 +1,4 @@
 import { spawnSync } from "child_process";
-import { getCompressedTerminalCommand } from "./getCompressedTerminalCommand";
 import { Messages } from "../constants/Messages";
 import { getCommandSpecialProperty } from "./getCommandSpecialProperty";
 import { SpecialPropertyName } from "../constants/SpecialPropertyName";
@@ -23,23 +22,32 @@ interface RunTerminalCommandsProps {
  */
 export const runTerminalCommands = ({ commands }: RunTerminalCommandsProps): string => {
     
+    let commandMessagesOutput = '';
+
     const specialProperty = getCommandSpecialProperty();
-    let compressedCommands = getCompressedTerminalCommand({ commands });
 
-    compressedCommands = (specialProperty != undefined) ? compressedCommands.replaceAll(SpecialPropertyName, specialProperty) : compressedCommands
+    for(let eachCommand = 0; eachCommand < commands.length; eachCommand++) {
+        
+        let actualCommand = commands[eachCommand];
+        let preparedCommand = (specialProperty != undefined) ? actualCommand.replaceAll(SpecialPropertyName, specialProperty) : actualCommand;
 
-    const result = spawnSync(compressedCommands, {
-        stdio: "inherit",
-        shell: true,
-    });
+        const result = spawnSync(preparedCommand, {
+            stdio: "inherit",
+            shell: true,
+        });
 
-    if (result.error) {
-        return Messages.Error.RunningTerminalCommandUnsucessfully + compressedCommands + `, Error: ${result.error.message}`;
+        if (eachCommand != 0) commandMessagesOutput += '\n';
+
+        if (result.error) {
+            commandMessagesOutput += Messages.Error.RunningTerminalCommandUnsucessfully + preparedCommand + `, Error: ${result.error.message}`;
+        }
+
+        if (result.status === 0) {
+            commandMessagesOutput += Messages.Successfully.RunningTerminalCommandSuccessfully + preparedCommand;
+        } else {
+            commandMessagesOutput += Messages.Error.RunningTerminalCommandUnsucessfully + preparedCommand;
+        }
     }
 
-    if (result.status === 0) {
-        return Messages.Successfully.RunningTerminalCommandSuccessfully + compressedCommands;
-    } else {
-        return Messages.Error.RunningTerminalCommandUnsucessfully + compressedCommands;
-    }
+    return commandMessagesOutput;
 }
