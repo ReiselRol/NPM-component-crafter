@@ -427,10 +427,8 @@ export const DefaultConfig = {
                 }
             ],
             "commandsAfter": [
-                "(Get-Content '.component-crafter-config.txt' -Raw -Encoding UTF8).Replace('ç','\\\\n') | Set-Content '.component-crafter-config.txt' -Encoding UTF8",
-                "Remove-Item '.component-crafter-config.json'",
-                "Rename-Item -Path '.component-crafter-config.txt' -NewName '.component-crafter-config.json'" ,
-                "yarn install"
+                "yarn install",
+                "(Get-Content './.component-crafter-config.txt' -Raw -Encoding UTF8).Replace('ç','\\n') | Set-Content './.component-crafter-config.txt' -Encoding UTF8; Remove-Item './.component-crafter-config.json'; Rename-Item -Path './.component-crafter-config.txt' -NewName './.component-crafter-config.json'",
             ]
         }
     ]
