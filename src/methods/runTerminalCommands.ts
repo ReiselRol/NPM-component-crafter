@@ -32,8 +32,6 @@ export const runTerminalCommands = ({ commands }: RunTerminalCommandsProps): str
         let actualCommand = commands[eachCommand];
         let preparedCommand = (specialProperty != undefined) ? actualCommand.replaceAll(specialPropertyName, specialProperty) : actualCommand;
 
-        console.log(`\n[runTerminalCommands] Ejecutando en: ${process.cwd()}`);
-        
         const result = spawnSync(preparedCommand, {
             stdio: "inherit",
             shell: true,
