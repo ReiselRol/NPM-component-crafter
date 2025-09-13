@@ -1,4 +1,3 @@
-import { SpecialPropertyName } from "../constants/SpecialPropertyName"
 import { DefaultOptions } from "./DefaultOptions" 
 
 /**
@@ -14,7 +13,7 @@ export const DefaultConfig = {
             scaffold: [
                 {
                     type: "folder",
-                    name: SpecialPropertyName,
+                    name: "|SPECIAL|",
                     content: [
                         {
                             type: "folder",
@@ -23,13 +22,13 @@ export const DefaultConfig = {
                         },
                         {
                             type: "file",
-                            name: SpecialPropertyName + ".css",
+                            name: "|SPECIAL|.css",
                             content: ""
                         },
                         {
                             type: "file",
-                            name: SpecialPropertyName + ".tsx",
-                            content: "import './" + SpecialPropertyName + ".css'\n\nfunction " + SpecialPropertyName + "({}) {\n  return (\n    <>\n\n    </>\n  )\n\n}\nexport default " + SpecialPropertyName
+                            name: "|SPECIAL|.tsx",
+                            content: "import './|SPECIAL|.css'\n\nfunction |SPECIAL|({}) {\n  return (\n    <>\n\n    </>\n  )\n\n}\nexport default |SPECIAL|"
                         }
                     ]
                 }

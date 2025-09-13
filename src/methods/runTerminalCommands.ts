@@ -1,7 +1,7 @@
 import { spawnSync } from "child_process";
 import { Messages } from "../constants/Messages";
 import { getCommandSpecialProperty } from "./getCommandSpecialProperty";
-import { SpecialPropertyName } from "../constants/SpecialPropertyName";
+import { getSpecialPropertyName } from "./getSpecialPropertyName";
 
 interface RunTerminalCommandsProps {
     commands: string[];
@@ -28,8 +28,9 @@ export const runTerminalCommands = ({ commands }: RunTerminalCommandsProps): str
 
     for(let eachCommand = 0; eachCommand < commands.length; eachCommand++) {
         
+        const specialPropertyName = getSpecialPropertyName()
         let actualCommand = commands[eachCommand];
-        let preparedCommand = (specialProperty != undefined) ? actualCommand.replaceAll(SpecialPropertyName, specialProperty) : actualCommand;
+        let preparedCommand = (specialProperty != undefined) ? actualCommand.replaceAll(specialPropertyName, specialProperty) : actualCommand;
 
         const result = spawnSync(preparedCommand, {
             stdio: "inherit",

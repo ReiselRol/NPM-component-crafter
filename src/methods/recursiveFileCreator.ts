@@ -4,7 +4,7 @@ import { CrafterCommandFile } from "../types/CrafterCommandFile";
 import { getCommandSpecialProperty } from "./getCommandSpecialProperty";
 import { getConfigFile } from "./getConfigFile";
 import fs from "fs-extra";
-import { SpecialPropertyName } from "../constants/SpecialPropertyName";
+import { getSpecialPropertyName } from "./getSpecialPropertyName";
 
 const { ensureDirSync, writeFileSync } = fs;
 
@@ -38,11 +38,12 @@ export const recursiveFileCreator = ({ scaffold, startingPath, depth = 0 }: Recu
     for (let eachElement = 0; eachElement < scaffold.length; eachElement++) {
 
         const elementSelected = scaffold[eachElement];
-        let textOfTheCreationContext = ""
+        let textOfTheCreationContext = "";
+        const specialPropertyName = getSpecialPropertyName();
 
         if (elementSelected.type != undefined && elementSelected.name != undefined && elementSelected.name.length > 0) {
 
-            let fileName = (specialProperty == undefined) ? elementSelected.name : elementSelected.name.replaceAll(SpecialPropertyName, specialProperty);
+            let fileName = (specialProperty == undefined) ? elementSelected.name : elementSelected.name.replaceAll(specialPropertyName, specialProperty);
             const newStartingPath = path.join(startingPath, fileName);
 
             if (elementSelected.type == FileType.Folder) {
@@ -64,7 +65,7 @@ export const recursiveFileCreator = ({ scaffold, startingPath, depth = 0 }: Recu
                 for (let spaceDepth = 0; spaceDepth < depth; spaceDepth++) textOfTheCreationContext += (spaceDepth == depth - 1) ? " |______ " : "         ";
                 textOfTheCreationContext += fileName;
                 if (extraDetails == true) textOfTheCreationContext += " ( " + newStartingPath + " ).";
-                let content = (specialProperty == undefined) ? elementSelected.content as string : (elementSelected.content as string).replaceAll(SpecialPropertyName, specialProperty);
+                let content = (specialProperty == undefined) ? elementSelected.content as string : (elementSelected.content as string).replaceAll(specialPropertyName, specialProperty);
                 writeFileSync(newStartingPath, content);
             }
         }

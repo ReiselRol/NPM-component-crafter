@@ -13,5 +13,9 @@ export interface ConfigurationType {
      * With this property we can know all the custom commands that contains the settings
      * file of component crafter.
      */
-    commands: CrafterCommandType[]
+    commands: CrafterCommandType[],
+    /**
+     * With this property we can know what is the special property name.
+     */
+    specialProperty?: string
 }
