@@ -81,7 +81,7 @@ export const executeCraftCommand = () => {
         }
 
         if (commandSelected.commandsAfter != undefined && Array.isArray(commandSelected.commandsAfter)) {
-            message += runTerminalCommands({commands: commandSelected.commandsAfter})
+            message += "\n" + runTerminalCommands({commands: commandSelected.commandsAfter})
         }
         
         if (message == '') print({ message: Messages.Information.DontDoAnything + commandName, logType: LogType.Information });
