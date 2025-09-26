@@ -341,11 +341,11 @@
     undici-types "~7.10.0"
 
 "@types/node@^24.3.0":
-  version "24.3.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.3.1.tgz#b0a3fb2afed0ef98e8d7f06d46ef6349047709f3"
-  integrity sha512-3vXmQDXy+woz+gnrTvuvNrPzekOi+Ds0ReMxw0LzBiK3a+1k0kQn9f2NWk+lgD4rJehFUmYy2gMhJ2ZI+7YP9g==
+  version "24.5.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.5.2.tgz#52ceb83f50fe0fcfdfbd2a9fab6db2e9e7ef6446"
+  integrity sha512-FYxk1I7wPv3K2XBaoyH2cTnocQEu8AOZ60hPbsyukMPLv5/5qr7V1i8PLHdl6Zf87I+xZXFvPCXYjiTFq+YSDQ==
   dependencies:
-    undici-types "~7.10.0"
+    undici-types "~7.12.0"
 
 "@vitest/expect@3.2.4":
   version "3.2.4"
@@ -522,9 +522,9 @@ commander@^4.0.0:
   integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
 
 component-crafter@^2.0.6:
-  version "2.0.15"
-  resolved "https://registry.yarnpkg.com/component-crafter/-/component-crafter-2.0.15.tgz#3400cbe3502e620852f8b642f87b330398d620b2"
-  integrity sha512-9IFsFemHuOlmx/Tm7rQiRQvNB9p40CW4iXyIVJQx7F51qxMvn0JNwNN4G2RZ2YXJTLdl1baccqA00myFOc2jCA==
+  version "2.0.35"
+  resolved "https://registry.yarnpkg.com/component-crafter/-/component-crafter-2.0.35.tgz#c8a52a8daf1c57b2564e5df8582dfdf27d5db604"
+  integrity sha512-c94gjtaBAn3ag+Zf89WyZIAvnhTVWnqPCSmce/5NS1AVOYEgpcNIEMEi1Sv/4hhexxKjGXKQGqhcWPOl8lyiuA==
   dependencies:
     commander "^14.0.0"
     fast-glob "^3.3.3"
@@ -1216,6 +1216,11 @@ undici-types@~7.10.0:
   version "7.10.0"
   resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-7.10.0.tgz#4ac2e058ce56b462b056e629cc6a02393d3ff350"
   integrity sha512-t5Fy/nfn+14LuOc2KNYg75vZqClpAiqscVvMygNnlsHBFpSXdJaYtXMcdNLpl/Qvc3P2cB3s6lOV51nqsFq4ag==
+
+undici-types@~7.12.0:
+  version "7.12.0"
+  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-7.12.0.tgz#15c5c7475c2a3ba30659529f5cdb4674b622fafb"
+  integrity sha512-goOacqME2GYyOZZfb5Lgtu+1IDmAlAEu5xnD3+xTzS10hT0vzpf0SPjkXwAw9Jm+4n/mQGDP3LO8CPbYROeBfQ==
 
 universalify@^2.0.0:
   version "2.0.1"
