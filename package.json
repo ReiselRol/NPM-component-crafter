@@ -1,6 +1,6 @@
 {
   "name": "component-crafter",
-  "version": "3.0.0",
+  "version": "3.0.3",
   "description": "",
   "main": "dist/index.js",
   "type": "module",
@@ -23,7 +23,7 @@
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.3.0",
-    "component-crafter": "^3.0.0",
+    "component-crafter": "^3.0.2",
     "tsup": "^8.5.0",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
