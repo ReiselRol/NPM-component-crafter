@@ -38,7 +38,7 @@ export const createElementsByScaffoldTemplate = ({scaffold, startingPath, conten
 
     filesAndFolders.filter(eachElement => eachElement.isDirectory()).map(eachFolder => {
         let filename = replaceSpecialProperty({ stringToReplace: eachFolder.name });
-        let newContentPath = path.join(contentPath, filename);
+        let newContentPath = path.join(contentPath, eachFolder.name);
         let newStartingPath = path.join(startingPath, filename);
         textOfTheCreation = "\n" + getSpaceDepthString({depth}) + filename;
         ensureDirSync(newStartingPath);
@@ -51,9 +51,8 @@ export const createElementsByScaffoldTemplate = ({scaffold, startingPath, conten
     });
 
     filesAndFolders.filter(eachElement => eachElement.isFile()).map(eachFile => {
-        let rawFileName = eachFile.name;
         let filename = replaceSpecialProperty({ stringToReplace: eachFile.name });
-        let newContentPath = path.join(contentPath, rawFileName);
+        let newContentPath = path.join(contentPath, eachFile.name);
         let newStartingPath = path.join(startingPath, filename);
         ensureDirSync(startingPath);
         let content = replaceSpecialProperty({ stringToReplace: readFileSync(newContentPath, "utf-8")});
