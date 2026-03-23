@@ -22,7 +22,7 @@ export const componentCrafterCall = () => {
 
     if (commandName != undefined) {
         if (checkIfIsTheInitCommand({commandName})) {
-            createEnviroment({startingPath: getProjectRoot()});
+            createEnviroment();
         }
         else {
             executeCraftCommand();

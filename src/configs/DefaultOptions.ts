@@ -1,3 +1,5 @@
+import { SpecialPropertyName } from "../constants/SpecialPropertyName";
+
 /**
  * This are the default options that have the crafter settings.
  */
@@ -10,5 +12,9 @@ export const DefaultOptions = {
     /**
      * This property have an array of commands for run with yarn craft and the command name.
      */
-    commands: []
+    commands: [],
+    /**
+     * This property have the string taht will search to replace the elements.
+     */
+    specialProperty: SpecialPropertyName
 } as const

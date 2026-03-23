@@ -1,17 +1,12 @@
-import path from "path";
-import { FileType } from "../enums/FileType";
-import { CrafterCommandFile } from "../types/CrafterCommandFile";
-import { getCommandSpecialProperty } from "./getCommandSpecialProperty";
-import { getConfigFile } from "./getConfigFile";
-import fs from "fs-extra";
-import { getSpecialPropertyName } from "./getSpecialPropertyName";
-
-const { ensureDirSync, writeFileSync } = fs;
+import { CrafterCommandScaffoldType } from "../types/CrafterCommandScaffoldType";
+import { checkIfThisScaffoldIsATemplate } from "./checkIfThisScaffoldIsATemplate";
+import { createElementsByScaffoldInfo } from "./createElementsByScaffoldInfo";
+import { createElementsByScaffoldTemplate } from "./createElementsByScaffoldTemplate";
 
 interface RecursiveFileCreatorProps {
     startingPath: string,
     depth?: number,
-    scaffold: CrafterCommandFile[]
+    scaffold: CrafterCommandScaffoldType
 }
 
 /**
@@ -32,44 +27,11 @@ interface RecursiveFileCreatorProps {
 export const recursiveFileCreator = ({ scaffold, startingPath, depth = 0 }: RecursiveFileCreatorProps): string => {
 
     let textOfTheCreation = "";
-    const specialProperty = getCommandSpecialProperty();
-    const extraDetails = getConfigFile().showExtraDetails;
 
-    for (let eachElement = 0; eachElement < scaffold.length; eachElement++) {
-
-        const elementSelected = scaffold[eachElement];
-        let textOfTheCreationContext = "";
-        const specialPropertyName = getSpecialPropertyName();
-
-        if (elementSelected.type != undefined && elementSelected.name != undefined && elementSelected.name.length > 0) {
-
-            let fileName = (specialProperty == undefined) ? elementSelected.name : elementSelected.name.replaceAll(specialPropertyName, specialProperty);
-            const newStartingPath = path.join(startingPath, fileName);
-
-            if (elementSelected.type == FileType.Folder) {
-                textOfTheCreationContext = "\n";
-                for (let spaceDepth = 0; spaceDepth < depth; spaceDepth++) textOfTheCreationContext += (spaceDepth == depth - 1) ? " |______ " : "         ";
-                textOfTheCreationContext += fileName;
-                ensureDirSync(newStartingPath);
-
-                if (Array.isArray(elementSelected.content)) {
-                    textOfTheCreationContext += recursiveFileCreator({
-                        scaffold: elementSelected.content,
-                        startingPath: newStartingPath,
-                        depth: depth + 1
-                    })
-                }
-            }
-            else if (elementSelected.type == FileType.File) {
-                textOfTheCreationContext = "\n";
-                for (let spaceDepth = 0; spaceDepth < depth; spaceDepth++) textOfTheCreationContext += (spaceDepth == depth - 1) ? " |______ " : "         ";
-                textOfTheCreationContext += fileName;
-                if (extraDetails == true) textOfTheCreationContext += " ( " + newStartingPath + " ).";
-                let content = (specialProperty == undefined) ? elementSelected.content as string : (elementSelected.content as string).replaceAll(specialPropertyName, specialProperty);
-                writeFileSync(newStartingPath, content);
-            }
-        }
-        textOfTheCreation += textOfTheCreationContext;
+    if (checkIfThisScaffoldIsATemplate({scaffoldToCheck: scaffold}) && typeof scaffold === "string") {
+        textOfTheCreation += createElementsByScaffoldTemplate({ scaffold, startingPath, depth });
+    } else if (typeof scaffold !== "string") {
+        textOfTheCreation += createElementsByScaffoldInfo({ scaffold, startingPath, depth });
     }
 
     return textOfTheCreation;

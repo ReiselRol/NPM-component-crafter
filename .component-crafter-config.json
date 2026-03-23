@@ -1,6 +1,15 @@
 {
- "showExtraDetails": false,
+ "showExtraDetails": true,
  "commands": [
+    {
+        "name": "test",
+        "description": "",
+        "startingPath": [
+            "src",
+            "components"
+        ],
+        "scaffold": "Test"
+    },
   {
    "name": "component",
    "description": "this command will create a folder with a tsx and their css linked and a folder for tests.",

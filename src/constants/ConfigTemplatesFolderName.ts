@@ -1,0 +1,1 @@
+export const ConfigTemplatesFolderName: string = ".component-crafter-templates" as const

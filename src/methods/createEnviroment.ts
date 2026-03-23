@@ -1,30 +1,28 @@
-import fs from 'fs-extra';
+import fs, { ensureDir } from 'fs-extra';
 import { DefaultConfig } from "../configs/DefaultConfig";
 import { Messages } from "../constants/Messages";
 import { LogType } from "../enums/LogType";
 import { print } from "./print";
 import { getConfigFilePath } from './getConfigFilePath';
 import { checkIfItsTheConfigFileCreated } from './checkIfItsTheConfigFileCreated';
+import { getTemplateFolderRoute } from './getTemplateFolderRoute';
 
 const { writeFileSync } = fs;
-interface CreateEnviromentProps {
-    startingPath: string;
-}
 
 /**
  * With this function we can create the config file by passing its starting file.
  * 
- * @param Object On this param you must pass an object with one property: <br></br>
- * -  startingPath: On this property you need to pass an string of the starting path of the command.
- * 
  * @example
  * createEnviroment({startingPath: ""});
  */
-export const createEnviroment = ({ startingPath } : CreateEnviromentProps) => {
+export const createEnviroment = () => {
     
-    const configFilePath = getConfigFilePath({startingPath});
+    const configFilePath = getConfigFilePath();
+    const configTemplateFolder = getTemplateFolderRoute();
 
-    if (!checkIfItsTheConfigFileCreated({startingPath})) { 
+    ensureDir(configTemplateFolder);
+
+    if (!checkIfItsTheConfigFileCreated()) { 
         writeFileSync(configFilePath, JSON.stringify(DefaultConfig, null, " "))
         print({message: Messages.Successfully.InitializedSucessfully, logType: LogType.Success});
     }

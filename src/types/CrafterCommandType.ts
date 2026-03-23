@@ -1,4 +1,4 @@
-import { CrafterCommandFile } from "./CrafterCommandFile";
+import { CrafterCommandScaffoldType } from "./CrafterCommandScaffoldType";
 
 /**
  * With this interface we can get the information for the custom command.
@@ -23,7 +23,7 @@ export interface CrafterCommandType {
      * With this property we can know what files or folder its gonna
      * create this custom command.
      */
-    scaffold?: CrafterCommandFile[];
+    scaffold?: CrafterCommandScaffoldType;
     /**
      * With this property we can know what commands need to run before
      * it runs the command itsef

@@ -23,7 +23,7 @@ export const executeCraftCommand = () => {
 
     const startingPath: string = getProjectRoot();
 
-    if (!checkIfItsTheConfigFileCreated({ startingPath })) {
+    if (!checkIfItsTheConfigFileCreated()) {
         print({ message: Messages.Error.CantRunCustomCommandWithoutInitialize, logType: LogType.Error });
         return;
     }
